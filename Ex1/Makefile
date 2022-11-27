@@ -15,7 +15,7 @@ endif
 CFLAGS+=-Wall -O2
 CFLAGS_THREADS=$(CFLAGS) -fopenmp
 
-all: diffusion2d_serial diffusion2d_openmp diffusion2d_mpi_nb diffusion2d_mpi diff_rect
+all: diffusion2d_serial diffusion2d_openmp diffusion2d_mpi_nb diffusion2d_mpi diff_rect_diagnostics diff_rect
 
 diffusion2d_serial: diffusion2d_openmp.c
 	$(CC) $(CFLAGS) -o $@ $<
@@ -32,8 +32,11 @@ diffusion2d_mpi: diffusion2d_mpi.c
 diff_rect: diff_rect.c
 	$(MPICC) $(CFLAGS) -o $@ $<
 
+diff_rect_diagnostics: diff_rect_diagnostics.c
+	$(MPICC) $(CFLAGS) -o $@ $<
+
 clean:
-	rm -f diffusion2d_serial diffusion2d_openmp diffusion2d_mpi_nb diffusion2d_mpi *.dat
+	rm -f diffusion2d_serial diffusion2d_openmp diffusion2d_mpi_nb diffusion2d_mpi diff_rect_diagnostics diff_rect *.dat
 	rm -rf *.dSYM
 
 
