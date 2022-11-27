@@ -6,6 +6,19 @@
 
 
 
+int find_sqrt_procs(int procs){
+    for(int i=0;i<procs;i++){
+        if(procs==i*i){
+            return i;
+        }
+    }
+    return 0;
+
+
+
+
+}
+
 typedef struct Diagnostics_s
 {
     double time;
@@ -308,27 +321,19 @@ int main(int argc, char* argv[])
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &procs);
-    if (procs==1){
-        sqrt_procs=1;
-    }
-    if (procs==4){
-        sqrt_procs=2;
-    }
-    if (procs==16){
-        sqrt_procs=4;
-    }
-    if (procs==64){
-        sqrt_procs=8;
-    }
+    sqrt_procs=find_sqrt_procs(procs);
+    //printf("our sqrt of procs is %d",sqrt_procs);
+
+
     if(sqrt_procs==0){
         printf("Process count should be a power of 4\n");
         return 1;  
     }
-    const double D = 1.0;//atof(argv[1]);
-    const double L = 1;//atoi(argv[2]);
-    const int N = 4096;//atoi(argv[3]);
-    const int T = 1000;//atoi(argv[4]);
-    const double dt = 1e-9;//atof(argv[5]);
+    const double D = atof(argv[1]);
+    const double L = atoi(argv[2]);
+    const int N = atoi(argv[3]);
+    const int T = atoi(argv[4]);
+    const double dt = atof(argv[5]);
 
     Diffusion2D system;
 
