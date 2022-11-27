@@ -7,12 +7,20 @@
 
 
 int find_sqrt_procs(int procs){
-    for(int i=0;i<procs;i++){
-        if(procs==i*i){
-            return i;
+    int half;
+    half=(int)(procs/2);
+    int divid=1;
+    while(1){
+        if(procs==divid*divid){
+            return (int)(divid);
         }
+        if(divid>half){
+            return 0;
+        }
+        divid=divid*2;
+
+
     }
-    return 0;
 
 
 
